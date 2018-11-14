@@ -41,7 +41,8 @@ public class Plateau extends Application {
                     } else if (couloir.pacGomme){
                         Circle circle = new Circle(0, 0, 2, Color.WHITE);
                         stackPane.getChildren().addAll(rectangle, circle);
-                    }
+                    } else
+                        stackPane.getChildren().addAll(rectangle);
                 } else {
                     rectangle.setFill(Color.MIDNIGHTBLUE);
                     stackPane.getChildren().addAll(rectangle);
@@ -56,7 +57,6 @@ public class Plateau extends Application {
 
         primaryStage.setTitle("PacMan FX");
         primaryStage.setScene(scene);
-        primaryStage.setMaximized(true);
         primaryStage.show();
     }
 
