@@ -31,6 +31,9 @@ nbdist/
 .nb-gradle/
 
 # IntelliJ
+.idea/**
+*.iml
+
 # User-specific stuff
 .idea/**/workspace.xml
 .idea/**/tasks.xml
@@ -94,3 +97,5 @@ fabric.properties
 
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
+
+
