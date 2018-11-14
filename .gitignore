@@ -29,6 +29,9 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+nbproject/**
+*.xml
+manifest.mf
 
 # IntelliJ
 .idea/**
