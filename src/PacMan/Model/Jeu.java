@@ -1,11 +1,15 @@
 package PacMan.Model;
 
+import PacMan.Model.Parser.Parser;
+
+import java.io.IOException;
+import java.rmi.server.ExportException;
 import java.util.Observable;
 
 public class Jeu extends Observable {
 
-    public static final int LONGUEUR = 20;
-    public static final int LARGEUR = 20;
+    public static final int LONGUEUR = 21;
+    public static final int LARGEUR = 21;
 
     public Case[][] plateau;
     public Entite[][] tabEntite;
@@ -14,24 +18,33 @@ public class Jeu extends Observable {
         this.plateau = new Case[this.LONGUEUR][this.LARGEUR];
         this.tabEntite = new Entite[this.LONGUEUR][this.LARGEUR];
 
-        initialiser();
+        try {
+
+            initialiser();
+        } catch (Exception e) {
+            System.err.println("Erreur lors de la création du plateau !\n" + e.getMessage());
+            System.exit(1);
+        }
     }
 
 
     // TODO
-    private void initialiser() {
+    private void initialiser() throws IOException {
 
-        for(int i = 0; i < this.LONGUEUR; i++) {
-            for(int j = 0; j < this.LARGEUR; j++) {
+        Parser parser = new Parser();
+        this.plateau = parser.createPlateau();
 
-                if(i == 0 || i == 19 || j == 1 || j == 19) {
-                    this.plateau[i][j] = new Mur();
-
-                } else {
-                    this.plateau[i][j] = new Couloir(true, false);
-                }
-            }
-        }
+        //for(int i = 0; i < this.LONGUEUR; i++) {
+        //    for(int j = 0; j < this.LARGEUR; j++) {
+        //
+        //        if(i == 0 || i == 19 || j == 0 || j == 19) {
+        //            this.plateau[i][j] = new Mur();
+        //
+        //        } else {
+        //            this.plateau[i][j] = new Couloir(true, false);
+        //        }
+        //    }
+        //}
     }
 
     // TODO
