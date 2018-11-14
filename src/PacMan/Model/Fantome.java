@@ -2,8 +2,9 @@ package PacMan.Model;
 
 public class Fantome extends Entite {
 
+    // TODO
     @Override
-    public void run() {
+    protected void realiserAction() {
 
     }
 }

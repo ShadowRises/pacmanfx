@@ -2,8 +2,9 @@ package PacMan.Model;
 
 public class Pacman extends Entite {
 
+    // TODO
     @Override
-    public void run() {
+    protected void realiserAction() {
 
     }
 }
