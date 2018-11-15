@@ -1,19 +1,39 @@
 package PacMan.Model.Parser;
 
-import PacMan.Model.Case;
-import PacMan.Model.Couloir;
-import PacMan.Model.Jeu;
-import PacMan.Model.Mur;
+import PacMan.Model.*;
+
 
 import java.io.*;
+import java.util.ArrayList;
 
 public class Parser {
 
+
+    /**
+     * Inner class to save the position of the Entite when Parser parse the file
+     */
+    private class EntitePosition {
+
+        private char type;
+        private int line;
+        private int column;
+
+        private EntitePosition(char type, int line, int column) {
+            this.type = type;
+            this.line = line;
+            this.column = column;
+        }
+
+    }
+
+
     private BufferedReader br;
     private InputStreamReader isr;
+    private ArrayList<EntitePosition> entitePositions;
+
 
     public Parser() throws FileNotFoundException {
-
+        this.entitePositions = new ArrayList<>();
         this.isr = new InputStreamReader(System.class.getResourceAsStream("/plateaux/defaultPlateau.txt"));
         this.br = new BufferedReader(this.isr);
     }
@@ -24,6 +44,12 @@ public class Parser {
         this.br = new BufferedReader(new InputStreamReader(fis));
     }
 
+
+    /**
+     *  Function which reads the file to create the array of Case for the Plateau
+     * @return Case[][] the array of Case which represent the Plateau
+     * @throws IOException
+     */
     public Case[][] createPlateau() throws IOException {
         Case[][] plateau = new Case[Jeu.LONGUEUR][Jeu.LARGEUR];
 
@@ -57,6 +83,16 @@ public class Parser {
                         plateau[ligne][colonne] = new Couloir(false,false);
                         break;
 
+                    case 'J':
+                        this.entitePositions.add(new EntitePosition('J', ligne, colonne));
+                        plateau[ligne][colonne] = new Couloir(false,false);
+                        break;
+
+                    case 'F':
+                        this.entitePositions.add(new EntitePosition('F', ligne, colonne));
+                        plateau[ligne][colonne] = new Couloir(false,false);
+                        break;
+
                     default:
                         throw new IOException("Caractère non reconnu");
                 }
@@ -73,5 +109,23 @@ public class Parser {
         this.br.close();
         this.isr.close();
         return plateau;
+    }
+
+
+    /**
+     *  Function which creates the array which stores the Entites position
+     * @return Entite[][] the array which stores the Entites position
+     */
+    public Entite[][] createEntite() {
+        Entite[][] tabEntite = new Entite[Jeu.LONGUEUR][Jeu.LARGEUR];
+
+        for(EntitePosition ep : this.entitePositions) {
+            if(ep.type == 'J')
+                tabEntite[ep.line][ep.column] = new Pacman();
+            else
+                tabEntite[ep.line][ep.column] = new Fantome();
+        }
+
+        return tabEntite;
     }
 }

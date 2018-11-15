@@ -28,23 +28,11 @@ public class Jeu extends Observable {
     }
 
 
-    // TODO
     private void initialiser() throws IOException {
 
         Parser parser = new Parser();
         this.plateau = parser.createPlateau();
-
-        //for(int i = 0; i < this.LONGUEUR; i++) {
-        //    for(int j = 0; j < this.LARGEUR; j++) {
-        //
-        //        if(i == 0 || i == 19 || j == 0 || j == 19) {
-        //            this.plateau[i][j] = new Mur();
-        //
-        //        } else {
-        //            this.plateau[i][j] = new Couloir(true, false);
-        //        }
-        //    }
-        //}
+        this.tabEntite = parser.createEntite();
     }
 
     // TODO
