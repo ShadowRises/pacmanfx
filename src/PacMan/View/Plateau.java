@@ -62,7 +62,7 @@ public class Plateau extends Application {
 
                 } else {
 
-                    rectangle.setFill(Color.MIDNIGHTBLUE);
+                    rectangle.setFill(Color.BLACK);
                     stackPane.getChildren().addAll(rectangle);
                 }
 

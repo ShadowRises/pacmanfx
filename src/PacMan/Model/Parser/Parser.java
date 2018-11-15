@@ -54,7 +54,8 @@ public class Parser {
                         break;
 
                     case 'c':
-                        plateau[ligne][colonne] = new Couloir(false,false);
+                        plateau[ligne][colonne>>>>>>> 4c1cbd8ff0c813c91a8fb446d0b164ec45a8de32
+] = new Couloir(false,false);
                         break;
 
                     default:
