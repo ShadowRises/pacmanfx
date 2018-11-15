@@ -3,7 +3,6 @@ package PacMan.Model;
 import PacMan.Model.Parser.Parser;
 
 import java.io.IOException;
-import java.rmi.server.ExportException;
 import java.util.Observable;
 
 public class Jeu extends Observable {
@@ -21,6 +20,7 @@ public class Jeu extends Observable {
         try {
 
             initialiser();
+
         } catch (Exception e) {
             System.err.println("Erreur lors de la création du plateau !\n" + e.getMessage());
             System.exit(1);

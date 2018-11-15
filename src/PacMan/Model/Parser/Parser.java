@@ -10,11 +10,12 @@ import java.io.*;
 public class Parser {
 
     private BufferedReader br;
+    private InputStreamReader isr;
 
     public Parser() throws FileNotFoundException {
-        FileInputStream fis = new FileInputStream("/home/shadowrises/Programmation/Java/pacmanfx/src/Ressources/defaultPlateau.txt");
 
-        this.br = new BufferedReader(new InputStreamReader(fis));
+        this.isr = new InputStreamReader(System.class.getResourceAsStream("/plateaux/defaultPlateau.txt"));
+        this.br = new BufferedReader(this.isr);
     }
 
     public Parser(String s) throws FileNotFoundException {
@@ -28,6 +29,8 @@ public class Parser {
 
         int ligne = 0;
         int colonne = 0;
+
+        while(!this.br.ready()) {}
 
         String ligneString = this.br.readLine();
         while(ligneString != null) {
@@ -67,6 +70,8 @@ public class Parser {
             ligneString = this.br.readLine();
         }
 
+        this.br.close();
+        this.isr.close();
         return plateau;
     }
 }

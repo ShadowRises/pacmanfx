@@ -1,6 +1,10 @@
 package PacMan.View;
 
-import PacMan.Model.*;
+import PacMan.Model.Jeu;
+import PacMan.Model.Couloir;
+import PacMan.Model.Mur;
+import PacMan.Model.Case;
+import PacMan.Model.Direction;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -17,36 +21,51 @@ public class Plateau extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        
+
+        // Model initialization
         Jeu jeu = new Jeu();
         
         BorderPane bPane = new BorderPane();
         GridPane gPane = new GridPane();
+
         gPane.setGridLinesVisible(true);
         gPane.setAlignment(Pos.CENTER);
         
         for (int i = 0; i < Jeu.LONGUEUR; i++){
             for (int j = 0; j < Jeu.LARGEUR; j++){
+
                 StackPane stackPane = new StackPane();
                 Rectangle rectangle = new Rectangle(30,30);
+
                 if (jeu.plateau[i][j] instanceof Mur){
+
                     rectangle.setFill(Color.DARKBLUE);
                     stackPane.getChildren().addAll(rectangle);
+
                 } else if (jeu.plateau[i][j] instanceof Couloir){
+
                     Couloir couloir = (Couloir) jeu.plateau[i][j];
                     rectangle.setFill(Color.BLACK);
-                    if (couloir.superPacGomme){
+
+                    if (couloir.superPacGomme) {
+
                         Circle circle = new Circle(0, 0, 7, Color.WHITE);
                         stackPane.getChildren().addAll(rectangle, circle);
-                    } else if (couloir.pacGomme){
+
+                    } else if (couloir.pacGomme) {
+
                         Circle circle = new Circle(0, 0, 2, Color.WHITE);
                         stackPane.getChildren().addAll(rectangle, circle);
+
                     } else
                         stackPane.getChildren().addAll(rectangle);
+
                 } else {
+
                     rectangle.setFill(Color.MIDNIGHTBLUE);
                     stackPane.getChildren().addAll(rectangle);
                 }
+
                 gPane.add(stackPane, i, j);
             }
         }
