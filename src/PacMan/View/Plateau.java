@@ -1,31 +1,29 @@
 package PacMan.View;
 
-import PacMan.Model.Jeu;
-import PacMan.Model.Couloir;
-import PacMan.Model.Mur;
-import PacMan.Model.Case;
-import PacMan.Model.Direction;
+import PacMan.Model.*;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-public class Plateau extends Application {
+public class Plateau extends BorderPane {
 
+    private static final int COTE_CARRE = 30;
+    private static final int RAD_PACGOMME = 3;
+    private static final int RAD_SUPERPACGOMME = 7;
 
-    @Override
-    public void start(Stage primaryStage) {
+    public Plateau () {
 
         // Model initialization
         Jeu jeu = new Jeu();
-        
-        BorderPane bPane = new BorderPane();
+
         GridPane gPane = new GridPane();
 
         gPane.setGridLinesVisible(true);
@@ -35,7 +33,7 @@ public class Plateau extends Application {
             for (int j = 0; j < Jeu.LARGEUR; j++){
 
                 StackPane stackPane = new StackPane();
-                Rectangle rectangle = new Rectangle(30,30);
+                Rectangle rectangle = new Rectangle(COTE_CARRE,COTE_CARRE);
 
                 if (jeu.plateau[i][j] instanceof Mur){
 
@@ -49,16 +47,28 @@ public class Plateau extends Application {
 
                     if (couloir.superPacGomme) {
 
-                        Circle circle = new Circle(0, 0, 7, Color.WHITE);
+                        Circle circle = new Circle(0, 0, RAD_SUPERPACGOMME, Color.WHITE);
                         stackPane.getChildren().addAll(rectangle, circle);
 
                     } else if (couloir.pacGomme) {
 
-                        Circle circle = new Circle(0, 0, 2, Color.WHITE);
+                        Circle circle = new Circle(0, 0, RAD_PACGOMME, Color.WHITE);
                         stackPane.getChildren().addAll(rectangle, circle);
 
                     } else
                         stackPane.getChildren().addAll(rectangle);
+
+                    if (jeu.tabEntite[i][j] instanceof Pacman){
+
+                        Circle circle = new Circle(0, 0, 10, Color.YELLOW);
+                        stackPane.getChildren().add(circle);
+
+                    } else  if (jeu.tabEntite[i][j] instanceof Fantome){
+
+                        Circle circle = new Circle(0, 0, 10, Color.MEDIUMPURPLE);
+                        stackPane.getChildren().add(circle);
+
+                    }
 
                 } else {
 
@@ -69,17 +79,7 @@ public class Plateau extends Application {
                 gPane.add(stackPane, i, j);
             }
         }
-        
-        bPane.setCenter(gPane);
 
-        Scene scene = new Scene(bPane, Color.BURLYWOOD);
-
-        primaryStage.setTitle("PacMan FX");
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
+        this.setCenter(gPane);
     }
 }
