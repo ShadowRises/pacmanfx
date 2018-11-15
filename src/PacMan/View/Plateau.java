@@ -44,7 +44,7 @@ public class Plateau extends Application {
                     } else
                         stackPane.getChildren().addAll(rectangle);
                 } else {
-                    rectangle.setFill(Color.MIDNIGHTBLUE);
+                    rectangle.setFill(Color.BLACK);
                     stackPane.getChildren().addAll(rectangle);
                 }
                 gPane.add(stackPane, i, j);
