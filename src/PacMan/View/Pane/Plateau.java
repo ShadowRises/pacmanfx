@@ -1,4 +1,4 @@
-package PacMan.View;
+package PacMan.View.Pane;
 
 import PacMan.Model.*;
 import javafx.application.Application;
