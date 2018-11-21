@@ -15,12 +15,15 @@ public class ApplicationPacMan extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         AudioClip test2 = new AudioClip(System.class.getResource("/sound/pacman_beginning.wav").toExternalForm());
+        test2.setCycleCount(AudioClip.INDEFINITE);
         test2.play();
 
         menu = new Menu();
         plateau = new Plateau();
 
         menu.playButton.setOnMouseClicked((click) -> {
+            if (test2.isPlaying())
+                test2.stop();
             Scene scene = new Scene(plateau);
             primaryStage.setScene(scene);
         });
