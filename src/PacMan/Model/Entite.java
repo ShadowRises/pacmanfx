@@ -20,12 +20,14 @@ public abstract class Entite implements Runnable {
     @Override
     public void run() {
         while(!this.jeu.finPartie()) {
+            System.out.println("RUN !!!");
             realiserAction();
+            System.out.println(this.posX + " " + this.posY);
             this.jeu.update();
 
             try {
 
-                Thread.sleep(4000);
+                Thread.sleep(500);
 
             } catch(InterruptedException e) {
                 System.err.println("Interrupt");
@@ -41,4 +43,9 @@ public abstract class Entite implements Runnable {
     public void setPosX(int posX) { this.posX = posX; }
 
     public void setPosY(int posY) { this.posY = posY; }
+
+    @Override
+    public String toString() {
+        return " ";
+    }
 }

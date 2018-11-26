@@ -11,4 +11,9 @@ public class Fantome extends Entite {
     protected void realiserAction() {
 
     }
+
+    @Override
+    public String toString() {
+        return "F";
+    }
 }

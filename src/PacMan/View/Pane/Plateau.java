@@ -33,6 +33,8 @@ public class Plateau extends BorderPane {
         this.draw();
 
         this.setCenter(gPane);
+
+        jeu.start();
     }
 
     public void draw() {

@@ -16,25 +16,26 @@ public class Pacman extends Entite {
 
         switch (this.currDirection) {
             case UP:
-                nextX = this.posX - 1;
-                break;
-
-            case DOWN:
-                nextX = this.posX + 1;
-                break;
-
-            case LEFT:
                 nextY = this.posY - 1;
                 break;
 
+            case DOWN:
+                nextY = this.posY + 1;
+                break;
+
+            case LEFT:
+                nextX = this.posX - 1;
+                break;
+
             case RIGHT:
-                nextX = this.posY + 1;
+                nextX = this.posX + 1;
                 break;
 
             case NOT_A_DIRECTION:
                 break;
         }
-
+        System.out.println("next :");
+        System.out.println(nextX + " " + nextY);
         deplacement(nextX, nextY);
     }
 
@@ -46,6 +47,12 @@ public class Pacman extends Entite {
 
             if(plateau[nextX][nextY] instanceof Couloir) {
 
+                tabEntite[nextX][nextY] = this;
+                if(nextX != this.posX && nextY != this.posY)
+                    tabEntite[this.posX][this.posY] = null;
+                this.posX = nextX;
+                this.posY = nextY;
+                /*
                 for(int i = 0; i < Jeu.LONGUEUR; i++) {
 
                     for(int j = 0; j < Jeu.LARGEUR; j++) {
@@ -60,8 +67,14 @@ public class Pacman extends Entite {
                         }
                     }
                 }
+                */
             }
 
         }
+    }
+
+    @Override
+    public String toString() {
+        return "P";
     }
 }

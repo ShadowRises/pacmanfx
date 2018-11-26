@@ -5,6 +5,7 @@ import PacMan.View.Pane.Menu;
 import PacMan.View.Pane.Plateau;
 import PacMan.Model.Jeu;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.media.AudioClip;
@@ -32,7 +33,6 @@ public class ApplicationPacMan extends Application {
             primaryStage.setScene(scene);
 
             scene.setOnKeyPressed(key -> {
-                System.out.println(key.getCode());
                 Direction direction;
                 switch(key.getCode()) {
                     case UP:
@@ -69,10 +69,17 @@ public class ApplicationPacMan extends Application {
                 }
             });
 
+            /**
+             * Stop all thread to properly close the game
+             */
+            primaryStage.setOnCloseRequest((e) -> {
+                jeu.pacmanThread.stop();
+            });
+
         });
 
         menu.exitButton.setOnMouseClicked((click) -> {
-            System.exit(0);
+            Platform.exit();
         });
 
         Scene scene = new Scene(menu);
