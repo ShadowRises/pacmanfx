@@ -1,8 +1,6 @@
 package PacMan.View;
 
 import PacMan.Model.Direction;
-import PacMan.Model.Entite;
-import PacMan.Model.Pacman;
 import PacMan.View.Pane.Menu;
 import PacMan.View.Pane.Plateau;
 import PacMan.Model.Jeu;
