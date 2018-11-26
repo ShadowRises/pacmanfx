@@ -1,6 +1,7 @@
 package PacMan.Model;
 
 import PacMan.Model.Parser.Parser;
+import javafx.application.Platform;
 
 import java.io.IOException;
 import java.util.Observable;
@@ -30,9 +31,16 @@ public class Jeu extends Observable {
 
     private void initialiser() throws IOException {
 
-        Parser parser = new Parser();
+        Parser parser = new Parser(this);
         this.plateau = parser.createPlateau();
         this.tabEntite = parser.createEntite();
+
+        for(int i = 0; i < Jeu.LONGUEUR; i++) {
+            for(Entite e : this.tabEntite[i]) {
+                if(e instanceof Pacman)
+                    new Thread(e).start();
+            }
+        }
     }
 
     // TODO
@@ -42,8 +50,23 @@ public class Jeu extends Observable {
     }
 
     // TODO
-    public void deplacer(Entite entite, Direction direction) {
-        entite.currDirection = direction;
+    public void deplacer(Direction direction) {
+
+        for(int i = 0; i < this.LONGUEUR; i++) {
+            for(int j = 0; j < this.LARGEUR; j++) {
+                if(this.tabEntite[i][j] instanceof Pacman) {
+                    if(!direction.equals(Direction.NOT_A_DIRECTION)) {
+                        this.tabEntite[i][j].currDirection = direction;
+                    }
+                    break;
+                }
+            }
+        }
+    }
+
+    public void update() {
+        this.setChanged();
+        this.notifyObservers();
     }
 
 }

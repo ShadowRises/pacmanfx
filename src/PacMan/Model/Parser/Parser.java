@@ -9,31 +9,15 @@ import java.util.ArrayList;
 public class Parser {
 
 
-    /**
-     * Inner class to save the position of the Entite when Parser parse the file
-     */
-    private class EntitePosition {
-
-        private char type;
-        private int line;
-        private int column;
-
-        private EntitePosition(char type, int line, int column) {
-            this.type = type;
-            this.line = line;
-            this.column = column;
-        }
-
-    }
-
-
+    private Jeu jeu;
     private BufferedReader br;
     private InputStreamReader isr;
-    private ArrayList<EntitePosition> entitePositions;
+    private ArrayList<Entite> entites;
 
 
-    public Parser() throws FileNotFoundException {
-        this.entitePositions = new ArrayList<>();
+    public Parser(Jeu jeu) throws FileNotFoundException {
+        this.jeu = jeu;
+        this.entites = new ArrayList<>();
         this.isr = new InputStreamReader(System.class.getResourceAsStream("/plateaux/defaultPlateau.txt"));
         this.br = new BufferedReader(this.isr);
     }
@@ -84,12 +68,12 @@ public class Parser {
                         break;
 
                     case 'J':
-                        this.entitePositions.add(new EntitePosition('J', ligne, colonne));
+                        this.entites.add(new Pacman(ligne, colonne, this.jeu));
                         plateau[ligne][colonne] = new Couloir(false,false);
                         break;
 
                     case 'F':
-                        this.entitePositions.add(new EntitePosition('F', ligne, colonne));
+                        this.entites.add(new Fantome(ligne, colonne, this.jeu));
                         plateau[ligne][colonne] = new Couloir(false,false);
                         break;
 
@@ -119,11 +103,8 @@ public class Parser {
     public Entite[][] createEntite() {
         Entite[][] tabEntite = new Entite[Jeu.LONGUEUR][Jeu.LARGEUR];
 
-        for(EntitePosition ep : this.entitePositions) {
-            if(ep.type == 'J')
-                tabEntite[ep.line][ep.column] = new Pacman();
-            else
-                tabEntite[ep.line][ep.column] = new Fantome();
+        for(Entite e : this.entites) {
+            tabEntite[e.getPosX()][e.getPosY()] = e;
         }
 
         return tabEntite;

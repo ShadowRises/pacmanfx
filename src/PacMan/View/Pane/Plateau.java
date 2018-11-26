@@ -1,17 +1,15 @@
 package PacMan.View.Pane;
 
 import PacMan.Model.*;
-import javafx.application.Application;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
+
+import java.util.Observable;
 
 public class Plateau extends BorderPane {
 
@@ -19,16 +17,27 @@ public class Plateau extends BorderPane {
     private static final int RAD_PACGOMME = 3;
     private static final int RAD_SUPERPACGOMME = 7;
 
+    private Jeu jeu;
+    private GridPane gPane;
+
     public Plateau () {
 
         // Model initialization
-        Jeu jeu = new Jeu();
+        this.jeu = new Jeu();
 
-        GridPane gPane = new GridPane();
+        this.gPane = new GridPane();
 
         gPane.setGridLinesVisible(true);
         gPane.setAlignment(Pos.CENTER);
-        
+
+        this.draw();
+
+        this.setCenter(gPane);
+    }
+
+    public void draw() {
+        gPane.getChildren().clear();
+        System.out.println("DRAW !!!!!!!");
         for (int i = 0; i < Jeu.LONGUEUR; i++){
             for (int j = 0; j < Jeu.LARGEUR; j++){
 
@@ -79,7 +88,7 @@ public class Plateau extends BorderPane {
                 gPane.add(stackPane, i, j);
             }
         }
-
-        this.setCenter(gPane);
     }
+
+    public Jeu getJeu() { return this.jeu; }
 }

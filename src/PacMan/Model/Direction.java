@@ -2,10 +2,11 @@ package PacMan.Model;
 
 public enum Direction {
 
-    HAUT ("haut"),
-    BAS ("bas"),
-    GAUCHE ("gauche"),
-    DROITE ("droite");
+    UP ("UP"),
+    DOWN ("DOWN"),
+    LEFT ("LEFT"),
+    RIGHT ("RIGHT"),
+    NOT_A_DIRECTION ("");
 
     private String name;
 
