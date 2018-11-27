@@ -36,7 +36,7 @@ public class Pacman extends Entite {
         }
         System.out.println("next :");
         System.out.println(nextX + " " + nextY);
-        deplacement(nextX, nextY);
+        deplacement(nextX % Jeu.LONGUEUR, nextY % Jeu.LARGEUR);
     }
 
     private void deplacement(int nextX, int nextY) {
@@ -47,9 +47,10 @@ public class Pacman extends Entite {
 
             if(plateau[nextX][nextY] instanceof Couloir) {
 
-                tabEntite[nextX][nextY] = this;
                 if(nextX != this.posX && nextY != this.posY)
-                    tabEntite[this.posX][this.posY] = null;
+                    tabEntite[this.posX][this.posY] = tabEntite[nextX][nextY];
+
+                tabEntite[nextX][nextY] = this;
                 this.posX = nextX;
                 this.posY = nextY;
                 /*
