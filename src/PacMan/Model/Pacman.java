@@ -50,6 +50,7 @@ public class Pacman extends Entite {
                 if(nextX != this.posX && nextY != this.posY)
                     tabEntite[this.posX][this.posY] = tabEntite[nextX][nextY];
 
+                tabEntite[this.posX][this.posY] = null;
                 tabEntite[nextX][nextY] = this;
                 this.posX = nextX;
                 this.posY = nextY;
