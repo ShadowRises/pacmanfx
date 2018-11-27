@@ -12,8 +12,4 @@ public class Fantome extends Entite {
 
     }
 
-    @Override
-    public String toString() {
-        return "F";
-    }
 }

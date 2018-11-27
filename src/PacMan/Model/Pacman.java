@@ -4,13 +4,12 @@ public class Pacman extends Entite {
 
     public Pacman(int posX, int posY, Jeu jeu) {
         super(posX, posY, jeu);
+        this.waitTime = 500;
     }
 
-    // TODO
     @Override
     protected void realiserAction() {
 
-        Case[][] plateau = this.jeu.plateau;
         int nextX = this.posX;
         int nextY = this.posY;
 
@@ -34,49 +33,47 @@ public class Pacman extends Entite {
             case NOT_A_DIRECTION:
                 break;
         }
-        System.out.println("next :");
-        System.out.println(nextX + " " + nextY);
+
         deplacement(nextX % Jeu.LONGUEUR, nextY % Jeu.LARGEUR);
     }
 
     private void deplacement(int nextX, int nextY) {
+
         synchronized (this) {
 
             Case[][] plateau = this.jeu.plateau;
             Entite[][] tabEntite = this.jeu.tabEntite;
 
             if(plateau[nextX][nextY] instanceof Couloir) {
-
-                if(nextX != this.posX && nextY != this.posY)
-                    tabEntite[this.posX][this.posY] = tabEntite[nextX][nextY];
+                Couloir nextPosition = (Couloir) plateau[nextX][nextY];
 
                 tabEntite[this.posX][this.posY] = null;
-                tabEntite[nextX][nextY] = this;
+
+                if(tabEntite[nextX][nextY] instanceof Fantome)
+                    this.isAlive = false;
+
+                else
+                    tabEntite[nextX][nextY] = this;
+
+
+                if(nextPosition.pacGomme) {
+
+                    nextPosition.pacGomme = false;
+                    this.jeu.score += 10;
+
+                } else if(nextPosition.superPacGomme) {
+
+                    nextPosition.superPacGomme = false;
+                    this.jeu.score += 50;
+
+                }
+
                 this.posX = nextX;
                 this.posY = nextY;
-                /*
-                for(int i = 0; i < Jeu.LONGUEUR; i++) {
 
-                    for(int j = 0; j < Jeu.LARGEUR; j++) {
-                        Entite e = tabEntite[i][j];
-
-                        if(e instanceof Pacman) {
-                            Pacman pacman = (Pacman) e;
-                            tabEntite[nextX][nextY] = e;
-                            e.setPosX(nextX);
-                            e.setPosY(nextY);
-                            tabEntite[i][j] = null;
-                        }
-                    }
-                }
-                */
             }
-
         }
+
     }
 
-    @Override
-    public String toString() {
-        return "P";
-    }
 }

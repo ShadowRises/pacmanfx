@@ -11,10 +11,13 @@ public class Jeu extends Observable {
     public static final int LONGUEUR = 21;
     public static final int LARGEUR = 21;
 
+    private Pacman pacman;
     public Thread pacmanThread;
 
     public Case[][] plateau;
     public Entite[][] tabEntite;
+
+    public int score;
 
     public Jeu() {
         this.plateau = new Case[this.LONGUEUR][this.LARGEUR];
@@ -36,6 +39,8 @@ public class Jeu extends Observable {
         Parser parser = new Parser(this);
         this.plateau = parser.createPlateau();
         this.tabEntite = parser.createEntite();
+
+        this.score = 0;
     }
 
     public void start() {
@@ -43,7 +48,8 @@ public class Jeu extends Observable {
         for(int i = 0; i < this.LONGUEUR; i++) {
             for(int j = 0; j < this.LARGEUR; j++) {
                 if(this.tabEntite[i][j] instanceof Pacman) {
-                    this.pacmanThread = new Thread(this.tabEntite[i][j]);
+                    this.pacman = (Pacman) this.tabEntite[i][j];
+                    this.pacmanThread = new Thread(this.pacman);
                     this.pacmanThread.start();
                 }
             }
@@ -53,10 +59,31 @@ public class Jeu extends Observable {
     // TODO
     public boolean finPartie() {
 
-        return false;
+        if(this.pacman.isAlive) {
+
+            for(int i = 0; i < this.LONGUEUR; i++) {
+                for(int j = 0; j < this.LARGEUR; j++) {
+
+                    if(this.plateau[i][j] instanceof Couloir) {
+                        Couloir couloir = (Couloir) this.plateau[i][j];
+
+                        if(couloir.pacGomme || couloir.superPacGomme)
+                            return false;
+                    }
+
+                }
+            }
+
+            // Debug
+            System.err.println("End");
+
+        }
+        // Debug
+        else System.err.println("Dead");
+
+        return true;
     }
 
-    // TODO
     public void deplacer(Direction direction) {
 
         if(!direction.equals(Direction.NOT_A_DIRECTION)) {
@@ -67,27 +94,6 @@ public class Jeu extends Observable {
                 }
             }
         }
-            //this.pacman.currDirection = direction;
-        /*
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        System.out.println("1 - " + direction);
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-
-        for(int i = 0; i < this.LONGUEUR; i++) {
-            for(int j = 0; j < this.LARGEUR; j++) {
-                if(this.tabEntite[i][j] instanceof Pacman) {
-                    System.err.println("PACMAN !!!");
-                    if(!direction.equals(Direction.NOT_A_DIRECTION)) {
-                        this.tabEntite[i][j].currDirection = direction;
-                    }
-                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                    System.out.println(this.tabEntite[i][j].currDirection);
-                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                    return;
-                }
-            }
-        }
-        */
     }
 
     public void update() {
