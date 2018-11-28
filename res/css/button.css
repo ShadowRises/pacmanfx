@@ -4,13 +4,14 @@
     -fx-border-color: #00008b;
     -fx-background-insets: 0,1,2,3;
     -fx-padding: 12 30 12 30;
-    -fx-text-fill: white;
+    -fx-text-fill: #FFFFFF;
     -fx-font-size: 12px;
     -fx-font-family: "Courier New";
 }
 
 .rich-blue:pressed{
-    -fx-background-color:#000000;
+    -fx-background-color:#FFFFFF;
+    -fx-text-fill: #000000;
 }
 
 /*.rich-blue Text {
