@@ -4,6 +4,7 @@ import PacMan.Model.Parser.Parser;
 import javafx.application.Platform;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Observable;
 
 public class Jeu extends Observable {
@@ -14,6 +15,10 @@ public class Jeu extends Observable {
     private Pacman pacman;
     public Thread pacmanThread;
 
+    private Fantome ghost = null;
+    public Thread ghostThread;
+    public ArrayList<Thread> ghostThreads;
+
     public Case[][] plateau;
     public Entite[][] tabEntite;
 
@@ -22,6 +27,8 @@ public class Jeu extends Observable {
     public Jeu() {
         this.plateau = new Case[this.LONGUEUR][this.LARGEUR];
         this.tabEntite = new Entite[this.LONGUEUR][this.LARGEUR];
+
+        this.ghostThreads = new ArrayList<>();
 
         try {
 
@@ -49,13 +56,23 @@ public class Jeu extends Observable {
             for(int j = 0; j < this.LARGEUR; j++) {
                 if(this.tabEntite[i][j] instanceof Pacman) {
 
+                    System.err.println("Pacman");
                     this.pacman = (Pacman) this.tabEntite[i][j];
                     this.pacmanThread = new Thread(this.pacman);
-                    this.pacmanThread.start();
 
+                } else if(this.tabEntite[i][j] instanceof Fantome) {
+
+                    System.err.println("Fantome");
+                    this.ghost = (Fantome) this.tabEntite[i][j];
+                    this.ghostThread = new Thread(this.ghost);
+                    this.ghostThreads.add(ghostThread);
                 }
             }
         }
+
+        this.pacmanThread.start();
+        for(Thread t : this.ghostThreads)
+            t.start();
     }
 
     // TODO

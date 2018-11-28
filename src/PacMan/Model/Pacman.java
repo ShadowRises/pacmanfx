@@ -43,7 +43,8 @@ public class Pacman extends Entite {
         deplacement(nextX % Jeu.LONGUEUR, nextY % Jeu.LARGEUR);
     }
 
-    private void deplacement(int nextX, int nextY) {
+    @Override
+    protected void deplacement(int nextX, int nextY) {
 
         synchronized (this) {
 

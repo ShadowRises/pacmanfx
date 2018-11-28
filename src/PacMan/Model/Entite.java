@@ -21,11 +21,12 @@ public abstract class Entite implements Runnable {
 
     protected abstract void realiserAction();
 
-    // TODO
+    protected abstract void deplacement(int nextX, int nextY);
+
     @Override
     public void run() {
         while(!this.jeu.finPartie()) {
-            realiserAction();
+            this.realiserAction();
             this.jeu.update();
 
             try {

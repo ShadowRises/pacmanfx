@@ -109,6 +109,8 @@ public class ApplicationPacMan extends Application {
          */
         stage.setOnCloseRequest((e) -> {
             jeu.pacmanThread.stop();
+            for(Thread t : jeu.ghostThreads)
+                t.stop();
         });
     }
 
