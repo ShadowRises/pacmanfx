@@ -16,8 +16,7 @@ public class Jeu extends Observable {
     public Thread pacmanThread;
 
     private Fantome ghost = null;
-    public Thread ghostThread;
-    public ArrayList<Thread> ghostThreads;
+    public Thread[] ghostThreads;
 
     public Case[][] plateau;
     public Entite[][] tabEntite;
@@ -28,7 +27,7 @@ public class Jeu extends Observable {
         this.plateau = new Case[this.LONGUEUR][this.LARGEUR];
         this.tabEntite = new Entite[this.LONGUEUR][this.LARGEUR];
 
-        this.ghostThreads = new ArrayList<>();
+        this.ghostThreads = new Thread[4];
 
         try {
 
@@ -52,30 +51,31 @@ public class Jeu extends Observable {
 
     public void start() {
 
+        int index = 0;
+
         for(int i = 0; i < this.LONGUEUR; i++) {
             for(int j = 0; j < this.LARGEUR; j++) {
                 if(this.tabEntite[i][j] instanceof Pacman) {
 
-                    System.err.println("Pacman");
                     this.pacman = (Pacman) this.tabEntite[i][j];
                     this.pacmanThread = new Thread(this.pacman);
 
                 } else if(this.tabEntite[i][j] instanceof Fantome) {
 
-                    System.err.println("Fantome");
                     this.ghost = (Fantome) this.tabEntite[i][j];
-                    this.ghostThread = new Thread(this.ghost);
-                    this.ghostThreads.add(ghostThread);
+                    this.ghostThreads[index] = new Thread(this.ghost);
+                    index++;
+
                 }
             }
         }
 
         this.pacmanThread.start();
-        for(Thread t : this.ghostThreads)
-            t.start();
+        for(int i = 0; i < this.ghostThreads.length; i++) {
+            this.ghostThreads[i].start();
+        }
     }
 
-    // TODO
     public boolean finPartie() {
 
         if(this.pacman.isAlive) {
