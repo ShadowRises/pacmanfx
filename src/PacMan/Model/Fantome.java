@@ -83,10 +83,10 @@ public class Fantome extends Entite {
 
                     tabEntite[nextX][nextY] = this;
 
+                    this.posX = nextX;
+                    this.posY = nextY;
                 }
 
-                this.posX = nextX;
-                this.posY = nextY;
 
             }
 
