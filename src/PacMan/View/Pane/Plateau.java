@@ -1,10 +1,9 @@
 package PacMan.View.Pane;
 
 import PacMan.Model.*;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -12,6 +11,7 @@ import javafx.scene.shape.Rectangle;
 import java.util.Observable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class Plateau extends BorderPane {
@@ -33,8 +33,12 @@ public class Plateau extends BorderPane {
         
         this.sPane = new StackPane();
 
+        this.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
+
         gPane.setAlignment(Pos.CENTER);
         sPane.setAlignment(Pos.CENTER_LEFT);
+
+        sPane.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
         
         jeu.start();
         
@@ -143,6 +147,9 @@ public class Plateau extends BorderPane {
         sPane.getChildren().clear();
         
         Text score = new Text("Score : " + jeu.score);
+        Font customFont = new Font("Alterebro Pixel Font", 20);
+        score.setFont(customFont);
+        score.setFill(Color.WHITE);
         
         sPane.getChildren().add(score);
     }

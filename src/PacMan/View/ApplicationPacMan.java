@@ -9,6 +9,7 @@ import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.media.AudioClip;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.util.Observable;
@@ -20,6 +21,9 @@ public class ApplicationPacMan extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        //Importing the font that will be used in the game
+        Font.loadFont(System.class.getResource("/fonts/alterebro-pixel-font.ttf").toExternalForm(), 20);
+
         stage = primaryStage;
 
         acBeginning = new AudioClip(System.class.getResource("/sound/pacman_beginning.wav").toExternalForm());
