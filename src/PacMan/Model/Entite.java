@@ -43,5 +43,6 @@ public abstract class Entite implements Runnable {
     public int getPosX() { return this.posX; }
 
     public int getPosY() { return this.posY; }
-
+    
+    public Direction getDirection() { return this.currDirection; }
 }
