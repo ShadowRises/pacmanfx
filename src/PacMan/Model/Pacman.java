@@ -1,5 +1,7 @@
 package PacMan.Model;
 
+import javafx.scene.media.AudioClip;
+
 public class Pacman extends Entite {
 
     public Pacman(int posX, int posY, Jeu jeu) {
@@ -46,7 +48,9 @@ public class Pacman extends Entite {
     private void deplacement(int nextX, int nextY) {
 
         synchronized (this) {
-
+            AudioClip pacmanChomp = new AudioClip(System.class.getResource("/sound/pacman_chomp.wav").toExternalForm());
+            pacmanChomp.play();
+            
             Case[][] plateau = this.jeu.plateau;
             Entite[][] tabEntite = this.jeu.tabEntite;
 

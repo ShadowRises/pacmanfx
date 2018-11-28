@@ -10,6 +10,8 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
 import java.util.Observable;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
 public class Plateau extends BorderPane {
@@ -32,14 +34,14 @@ public class Plateau extends BorderPane {
         this.sPane = new StackPane();
 
         gPane.setAlignment(Pos.CENTER);
-        sPane.setAlignment(Pos.CENTER);
-
+        sPane.setAlignment(Pos.CENTER_LEFT);
+        
+        jeu.start();
+        
         this.draw();
         
         this.setCenter(gPane);
         this.setTop(sPane);
-        
-        jeu.start();
     }
 
     public void draw() {
@@ -75,14 +77,36 @@ public class Plateau extends BorderPane {
                         stackPane.getChildren().addAll(rectangle);
 
                     if (jeu.tabEntite[i][j] instanceof Pacman){
-
-                        Circle circle = new Circle(0, 0, 10, Color.YELLOW);
-                        stackPane.getChildren().add(circle);
+                        ImageView imgPacman = null;
+                                
+                        switch (jeu.getPacman().getDirection()){
+                            case UP:
+                                imgPacman = new ImageView(new Image(System.class.getResourceAsStream("/icons/Pacman_top.png")));
+                                break;
+                                
+                            case DOWN:
+                                imgPacman = new ImageView(new Image(System.class.getResourceAsStream("/icons/Pacman_bottom.png")));
+                                break;
+                                
+                            case LEFT:
+                                imgPacman = new ImageView(new Image(System.class.getResourceAsStream("/icons/Pacman_left.png")));
+                                break;
+                                
+                            case RIGHT:
+                                imgPacman = new ImageView(new Image(System.class.getResourceAsStream("/icons/Pacman_right.png")));
+                                break;
+                                
+                            case NOT_A_DIRECTION:
+                                imgPacman = new ImageView(new Image(System.class.getResourceAsStream("/icons/Pacman_right.png")));
+                                break;
+                        }
+                        
+                        stackPane.getChildren().add(imgPacman);
 
                     } else  if (jeu.tabEntite[i][j] instanceof Fantome){
-
-                        Circle circle = new Circle(0, 0, 10, Color.MEDIUMPURPLE);
-                        stackPane.getChildren().add(circle);
+                        ImageView imgFantome;
+                        imgFantome = new ImageView(new Image(System.class.getResourceAsStream("/icons/Fantome_right.png")));
+                        stackPane.getChildren().add(imgFantome);
 
                     }
 
@@ -98,7 +122,7 @@ public class Plateau extends BorderPane {
         
         sPane.getChildren().clear();
         
-        Text score = new Text(Integer.toString(jeu.score));
+        Text score = new Text("Score : " + jeu.score);
         
         sPane.getChildren().add(score);
     }
