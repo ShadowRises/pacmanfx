@@ -48,9 +48,11 @@ public class Jeu extends Observable {
         for(int i = 0; i < this.LONGUEUR; i++) {
             for(int j = 0; j < this.LARGEUR; j++) {
                 if(this.tabEntite[i][j] instanceof Pacman) {
+
                     this.pacman = (Pacman) this.tabEntite[i][j];
                     this.pacmanThread = new Thread(this.pacman);
                     this.pacmanThread.start();
+
                 }
             }
         }
@@ -102,5 +104,7 @@ public class Jeu extends Observable {
             notifyObservers();
         });
     }
+
+    public Pacman getPacman() { return this.pacman; }
 
 }
