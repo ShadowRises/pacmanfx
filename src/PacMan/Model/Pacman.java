@@ -34,6 +34,12 @@ public class Pacman extends Entite {
                 break;
         }
 
+        if(nextX == -1)
+            nextX += Jeu.LONGUEUR;
+
+        if(nextY == -1)
+            nextY += Jeu.LARGEUR;
+
         deplacement(nextX % Jeu.LONGUEUR, nextY % Jeu.LARGEUR);
     }
 

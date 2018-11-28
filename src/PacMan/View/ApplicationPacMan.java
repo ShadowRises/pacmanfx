@@ -64,33 +64,21 @@ public class ApplicationPacMan extends Application {
             Direction direction;
             switch(key.getCode()) {
                 case UP:
-                    direction = Direction.UP;
-                    break;
-
-                case DOWN:
-                    direction = Direction.DOWN;
-                    break;
-
-                case LEFT:
-                    direction = Direction.LEFT;
-                    break;
-
-                case RIGHT:
-                    direction = Direction.RIGHT;
-                    break;
-
                 case Z:
                     direction = Direction.UP;
                     break;
 
+                case DOWN:
                 case S:
                     direction = Direction.DOWN;
                     break;
 
+                case LEFT:
                 case Q:
                     direction = Direction.LEFT;
                     break;
 
+                case RIGHT:
                 case D:
                     direction = Direction.RIGHT;
                     break;
