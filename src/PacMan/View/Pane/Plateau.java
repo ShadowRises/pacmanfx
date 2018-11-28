@@ -10,6 +10,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
 import java.util.Observable;
+import javafx.scene.text.Text;
 
 public class Plateau extends BorderPane {
 
@@ -19,6 +20,7 @@ public class Plateau extends BorderPane {
 
     private Jeu jeu;
     private GridPane gPane;
+    private StackPane sPane;
 
     public Plateau () {
 
@@ -26,14 +28,17 @@ public class Plateau extends BorderPane {
         this.jeu = new Jeu();
 
         this.gPane = new GridPane();
+        
+        this.sPane = new StackPane();
 
-        gPane.setGridLinesVisible(true);
         gPane.setAlignment(Pos.CENTER);
+        sPane.setAlignment(Pos.CENTER);
 
         this.draw();
-
+        
         this.setCenter(gPane);
-
+        this.setTop(sPane);
+        
         jeu.start();
     }
 
@@ -90,6 +95,12 @@ public class Plateau extends BorderPane {
                 gPane.add(stackPane, i, j);
             }
         }
+        
+        sPane.getChildren().clear();
+        
+        Text score = new Text(Integer.toString(jeu.score));
+        
+        sPane.getChildren().add(score);
     }
 
     public Jeu getJeu() { return this.jeu; }
