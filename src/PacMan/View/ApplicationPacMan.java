@@ -18,6 +18,8 @@ import java.util.Observer;
 public class ApplicationPacMan extends Application {
     private Stage stage;
     private AudioClip acBeginning;
+    private AudioClip acChomp;
+    private AudioClip acDeath;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -27,8 +29,13 @@ public class ApplicationPacMan extends Application {
         stage = primaryStage;
 
         acBeginning = new AudioClip(System.class.getResource("/sound/pacman_beginning.wav").toExternalForm());
-        acBeginning.play();
         acBeginning.setCycleCount(AudioClip.INDEFINITE);
+        acBeginning.setVolume(0.50);
+        acBeginning.play();
+
+        acChomp = new AudioClip(System.class.getResource("/sound/pacman_chomp.wav").toExternalForm());
+        acChomp.setCycleCount(AudioClip.INDEFINITE);
+        acChomp.setVolume(0.25);
 
         setMenuOnStage();
 
@@ -58,6 +65,8 @@ public class ApplicationPacMan extends Application {
     }
 
     private void setPlateauOnStage() {
+        acChomp.play();
+
         Plateau plateau = new Plateau();
         Scene scene = new Scene(plateau);
         Jeu jeu = plateau.getJeu();
@@ -103,7 +112,8 @@ public class ApplicationPacMan extends Application {
                 plateau.draw();
 
                 if (plateau.getJeu().finPartie()) {
-                     setMenuOnStage();
+                    acChomp.stop();
+                    setMenuOnStage();
                 }
             }
         });
