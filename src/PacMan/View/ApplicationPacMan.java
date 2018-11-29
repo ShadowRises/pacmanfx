@@ -37,6 +37,10 @@ public class ApplicationPacMan extends Application {
         acChomp.setCycleCount(AudioClip.INDEFINITE);
         acChomp.setVolume(0.25);
 
+        acDeath = new AudioClip(System.class.getResource("/sound/pacman_death.wav").toExternalForm());
+        acDeath.setCycleCount(1);
+        acDeath.setVolume(0.5);
+
         setMenuOnStage();
 
         primaryStage.setTitle("PacMan FX");
@@ -113,6 +117,11 @@ public class ApplicationPacMan extends Application {
 
                 if (plateau.getJeu().finPartie()) {
                     acChomp.stop();
+                    if (!plateau.getJeu().getPacman().isAlive())
+                        acDeath.play();
+                    while (acDeath.isPlaying()){
+                        System.out.println("On attends");
+                    }
                     setMenuOnStage();
                 }
             }
