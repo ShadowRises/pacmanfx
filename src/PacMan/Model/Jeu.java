@@ -20,6 +20,7 @@ public class Jeu extends Observable {
 
     public Case[][] plateau;
     public Entite[][] tabEntite;
+    public Fantome[] tabGhosts;
 
     public int score;
 
@@ -28,6 +29,7 @@ public class Jeu extends Observable {
         this.tabEntite = new Entite[this.LONGUEUR][this.LARGEUR];
 
         this.ghostThreads = new Thread[4];
+        this.tabGhosts = new Fantome[4];
 
         try {
 
@@ -63,6 +65,7 @@ public class Jeu extends Observable {
                 } else if(this.tabEntite[i][j] instanceof Fantome) {
 
                     this.ghost = (Fantome) this.tabEntite[i][j];
+                    this.tabGhosts[index] = this.ghost;
                     this.ghostThreads[index] = new Thread(this.ghost);
                     index++;
 

@@ -4,13 +4,44 @@ import java.util.Random;
 
 public class Fantome extends Entite {
 
+    public static final long WAIT_TIME = 400;
+    public static final long FEAR_WAIT_TIME = 800;
+
+    public boolean isFear;
+    public boolean isDead;
+
     public Fantome(int posX, int posY, Jeu jeu) {
         super(posX, posY, jeu);
-        this.waitTime = 400;
+        this.waitTime = this.WAIT_TIME;
+
+        this.isFear = false;
+        this.isDead = false;
     }
 
     @Override
-    protected void realiserAction() {
+    protected void realiserAction() throws InterruptedException {
+
+        if(this.isDead) {
+
+            for(int i = 0; i < Jeu.LONGUEUR; i++) {
+                for(int j = 0; j < Jeu.LARGEUR; j++) {
+
+                    if(this.jeu.plateau[i][j] instanceof Couloir) {
+                        Couloir c = (Couloir) this.jeu.plateau[i][j];
+
+                        if(c.respawn) {
+                            this.posX = i;
+                            this.posY = j;
+                        }
+                    }
+
+                }
+            }
+
+            Thread.sleep(1000);
+            this.isDead = false;
+            this.waitTime = this.WAIT_TIME;
+        }
 
         int nextX = this.posX;
         int nextY = this.posY;
@@ -92,5 +123,8 @@ public class Fantome extends Entite {
 
         }
     }
+
+    @Override
+    protected void decreaseTimeSuperRemaining() {}
 
 }

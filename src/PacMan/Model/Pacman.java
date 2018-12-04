@@ -2,19 +2,23 @@ package PacMan.Model;
 
 public class Pacman extends Entite {
 
+    public static final long TIME_SUPER = 12000;
+    public static final long WAIT_TIME = 500;
+
+    private static int KILLING_SPREE = 1;
+
     public long timeSuperRemaining;
     private boolean isSuper;
 
     public Pacman(int posX, int posY, Jeu jeu) {
         super(posX, posY, jeu);
-        this.waitTime = 500;
+        this.waitTime = this.WAIT_TIME;
 
         this.isSuper = false;
-        this.timeSuperRemaining = (this.waitTime * 2) * 12;
     }
 
     @Override
-    protected void realiserAction() {
+    protected void realiserAction() throws InterruptedException {
 
         int nextX = this.posX;
         int nextY = this.posY;
@@ -61,8 +65,20 @@ public class Pacman extends Entite {
 
                 tabEntite[this.posX][this.posY] = null;
 
-                if(tabEntite[nextX][nextY] instanceof Fantome)
-                    this.isAlive = false;
+                if(tabEntite[nextX][nextY] instanceof Fantome) {
+                    Fantome fantome = (Fantome) tabEntite[nextX][nextY];
+
+                    if(!this.isSuper)
+                        this.isAlive = false;
+
+                    else {
+                        fantome.isDead = true;
+                        tabEntite[nextX][nextY] = this;
+                        this.KILLING_SPREE++;
+                        this.jeu.score += this.KILLING_SPREE * 200;
+                    }
+
+                }
 
                 else
                     tabEntite[nextX][nextY] = this;
@@ -77,6 +93,13 @@ public class Pacman extends Entite {
 
                     nextPosition.superPacGomme = false;
                     this.isSuper = true;
+                    this.timeSuperRemaining = this.TIME_SUPER;
+
+                    for(int i = 0; i < this.jeu.tabGhosts.length; i++) {
+                        this.jeu.tabGhosts[i].isFear = false;
+                        this.jeu.tabGhosts[i].waitTime = Fantome.FEAR_WAIT_TIME;
+                    }
+
                     this.jeu.score += 50;
 
                 }
@@ -87,6 +110,21 @@ public class Pacman extends Entite {
             }
         }
 
+    }
+
+    @Override
+    protected void decreaseTimeSuperRemaining() {
+        this.timeSuperRemaining -= this.waitTime;
+
+        if(this.timeSuperRemaining == 0) {
+            this.isSuper = false;
+            this.KILLING_SPREE = 1;
+
+            for(int i = 0; i < this.jeu.tabGhosts.length; i++) {
+                this.jeu.tabGhosts[i].isFear = false;
+                this.jeu.tabGhosts[i].waitTime = Fantome.WAIT_TIME;
+            }
+        }
     }
 
 }

@@ -19,20 +19,20 @@ public abstract class Entite implements Runnable {
         this.jeu = jeu;
     }
 
-    protected abstract void realiserAction();
+    protected abstract void realiserAction() throws InterruptedException;
 
     protected abstract void deplacement(int nextX, int nextY);
 
     @Override
     public void run() {
         while(!this.jeu.finPartie()) {
-            this.realiserAction();
-            this.jeu.update();
 
             try {
+                this.realiserAction();
+                this.jeu.update();
 
                 Thread.sleep(this.waitTime);
-
+                this.decreaseTimeSuperRemaining();
 
             } catch(InterruptedException e) {
                 System.err.println("Interrupt");
@@ -48,4 +48,8 @@ public abstract class Entite implements Runnable {
     public Direction getDirection() { return this.currDirection; }
 
     public boolean isAlive() { return this.isAlive; }
+
+    protected abstract void decreaseTimeSuperRemaining();
+
+    public void setWaitTime(long waitTime) { this.waitTime = waitTime; }
 }

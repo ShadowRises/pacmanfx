@@ -77,6 +77,11 @@ public class Parser {
                         plateau[ligne][colonne] = new Couloir(false,false);
                         break;
 
+                    case 'R':
+                        this.entites.add(new Fantome(ligne, colonne, this.jeu));
+                        plateau[ligne][colonne] = new Couloir(false, false, true);
+                        break;
+
                     default:
                         throw new IOException("Caractère non reconnu");
                 }
