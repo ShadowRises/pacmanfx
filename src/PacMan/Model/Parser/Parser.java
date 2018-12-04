@@ -63,7 +63,7 @@ public class Parser {
                         plateau[ligne][colonne] = new Couloir(false, true);
                         break;
 
-                    case 'c':
+                    case '_':
                         plateau[ligne][colonne] = new Couloir(false,false);
                         break;
 

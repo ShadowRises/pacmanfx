@@ -4,13 +4,13 @@
  MpppppppppppppppppM
  MpMMpMpMMMMMpMpMMpM
  MppppMpppMpppMppppM
- MMMMpMMMcMcMMMpMMMM
-    MpMcccFcccMpM
-MMMMMpMcMMcMMcMpMMMMM
-cccccpccMFFFMccpccccc
-MMMMMpMcMMMMMcMpMMMMM
-    MpMcccccccMpM
- MMMMpMcMMMMMcMpMMMM
+ MMMMpMMM_M_MMMpMMMM
+    MpM___F___MpM
+MMMMMpM_MM_MM_MpMMMMM
+_____p__MFFFM__p_____
+MMMMMpM_MMMMM_MpMMMMM
+    MpM_______MpM
+ MMMMpM_MMMMM_MpMMMM
  MppppppppMppppppppM
  MpMMpMMMpMpMMMpMMpM
  MPpMpppppJpppppMpPM

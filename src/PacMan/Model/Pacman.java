@@ -2,9 +2,15 @@ package PacMan.Model;
 
 public class Pacman extends Entite {
 
+    public long timeSuperRemaining;
+    private boolean isSuper;
+
     public Pacman(int posX, int posY, Jeu jeu) {
         super(posX, posY, jeu);
         this.waitTime = 500;
+
+        this.isSuper = false;
+        this.timeSuperRemaining = (this.waitTime * 2) * 12;
     }
 
     @Override
@@ -70,6 +76,7 @@ public class Pacman extends Entite {
                 } else if(nextPosition.superPacGomme) {
 
                     nextPosition.superPacGomme = false;
+                    this.isSuper = true;
                     this.jeu.score += 50;
 
                 }

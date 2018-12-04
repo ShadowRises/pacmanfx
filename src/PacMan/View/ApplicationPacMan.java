@@ -112,7 +112,6 @@ public class ApplicationPacMan extends Application {
         jeu.addObserver(new Observer() {
             @Override
             public void update(Observable observable, Object o) {
-                System.out.println("UPDATE !!!!");
                 plateau.draw();
 
                 if (plateau.getJeu().finPartie()) {
@@ -120,7 +119,7 @@ public class ApplicationPacMan extends Application {
                     if (!plateau.getJeu().getPacman().isAlive())
                         acDeath.play();
                     while (acDeath.isPlaying()){
-                        System.out.println("On attends");
+                        //System.out.println("On attends");
                     }
                     setMenuOnStage();
                 }

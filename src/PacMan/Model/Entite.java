@@ -33,6 +33,7 @@ public abstract class Entite implements Runnable {
 
                 Thread.sleep(this.waitTime);
 
+
             } catch(InterruptedException e) {
                 System.err.println("Interrupt");
             }

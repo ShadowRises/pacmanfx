@@ -50,7 +50,6 @@ public class Plateau extends BorderPane {
 
     public void draw() {
         gPane.getChildren().clear();
-        System.out.println("DRAW !!!!!!!");
         for (int i = 0; i < Jeu.LONGUEUR; i++){
             for (int j = 0; j < Jeu.LARGEUR; j++){
 
