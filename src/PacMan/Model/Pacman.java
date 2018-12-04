@@ -8,7 +8,7 @@ public class Pacman extends Entite {
     private static int KILLING_SPREE = 1;
 
     public long timeSuperRemaining;
-    private boolean isSuper;
+    public boolean isSuper;
 
     public Pacman(int posX, int posY, Jeu jeu) {
         super(posX, posY, jeu);
@@ -125,9 +125,5 @@ public class Pacman extends Entite {
                 this.jeu.tabGhosts[i].waitTime = Fantome.WAIT_TIME;
             }
         }
-    }
-
-    public boolean isSuper() {
-        return isSuper;
     }
 }

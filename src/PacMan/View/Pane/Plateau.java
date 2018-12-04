@@ -109,8 +109,10 @@ public class Plateau extends BorderPane {
                     } else  if (jeu.tabEntite[i][j] instanceof Fantome){
                         ImageView imgFantome = null;
 
-                        if (jeu.getPacman().isSuper())
+                        if (jeu.getPacman().isSuper && jeu.getPacman().timeSuperRemaining > 3000)
                             imgFantome = new ImageView(new Image(System.class.getResourceAsStream("/icons/Fantome_weak.png")));
+                        else if (jeu.getPacman().isSuper && jeu.getPacman().timeSuperRemaining <= 3000)
+                            imgFantome = new ImageView(new Image(System.class.getResourceAsStream("/icons/Fantome_weak_warning.png")));
                         else {
                             switch (jeu.tabEntite[i][j].getDirection()) {
                                 case UP:
