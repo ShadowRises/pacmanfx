@@ -9,6 +9,7 @@ public class Fantome extends Entite {
 
     public boolean isFear;
     public boolean isDead;
+    public String color = "blue";
 
     public Fantome(int posX, int posY, Jeu jeu) {
         super(posX, posY, jeu);

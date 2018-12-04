@@ -107,6 +107,7 @@ public class Plateau extends BorderPane {
                         stackPane.getChildren().add(imgPacman);
 
                     } else  if (jeu.tabEntite[i][j] instanceof Fantome){
+                        Fantome tmpFantome = (Fantome) jeu.tabEntite[i][j];
                         ImageView imgFantome = null;
 
                         if (jeu.getPacman().isSuper && jeu.getPacman().timeSuperRemaining > 3000)
@@ -114,25 +115,25 @@ public class Plateau extends BorderPane {
                         else if (jeu.getPacman().isSuper && jeu.getPacman().timeSuperRemaining <= 3000)
                             imgFantome = new ImageView(new Image(System.class.getResourceAsStream("/icons/Fantome_weak_warning.png")));
                         else {
-                            switch (jeu.tabEntite[i][j].getDirection()) {
+                            switch (tmpFantome.getDirection()) {
                                 case UP:
-                                    imgFantome = new ImageView(new Image(System.class.getResourceAsStream("/icons/Fantome_top.png")));
+                                    imgFantome = new ImageView(new Image(System.class.getResourceAsStream("/icons/Fantome_top_" + tmpFantome.color + ".png")));
                                     break;
 
                                 case DOWN:
-                                    imgFantome = new ImageView(new Image(System.class.getResourceAsStream("/icons/Fantome_bottom.png")));
+                                    imgFantome = new ImageView(new Image(System.class.getResourceAsStream("/icons/Fantome_bottom_" + tmpFantome.color + ".png")));
                                     break;
 
                                 case LEFT:
-                                    imgFantome = new ImageView(new Image(System.class.getResourceAsStream("/icons/Fantome_left.png")));
+                                    imgFantome = new ImageView(new Image(System.class.getResourceAsStream("/icons/Fantome_left_" + tmpFantome.color + ".png")));
                                     break;
 
                                 case RIGHT:
-                                    imgFantome = new ImageView(new Image(System.class.getResourceAsStream("/icons/Fantome_right.png")));
+                                    imgFantome = new ImageView(new Image(System.class.getResourceAsStream("/icons/Fantome_right_" + tmpFantome.color + ".png")));
                                     break;
 
                                 case NOT_A_DIRECTION:
-                                    imgFantome = new ImageView(new Image(System.class.getResourceAsStream("/icons/Fantome_right.png")));
+                                    imgFantome = new ImageView(new Image(System.class.getResourceAsStream("/icons/Fantome_right_" + tmpFantome.color + ".png")));
                                     break;
                             }
                         }
