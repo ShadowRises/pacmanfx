@@ -116,11 +116,14 @@ public class ApplicationPacMan extends Application {
 
                 if (plateau.getJeu().finPartie()) {
                     acChomp.stop();
-                    if (!plateau.getJeu().getPacman().isAlive())
+
+                    if (!plateau.getJeu().getPacman().isAlive() && !acDeath.isPlaying()) {
                         acDeath.play();
-                    while (acDeath.isPlaying()){
-                        //System.out.println("On attends");
+
+                        while (acDeath.isPlaying())
+                            System.out.println("Waiting");
                     }
+
                     setMenuOnStage();
                 }
             }
