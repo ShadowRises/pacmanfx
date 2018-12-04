@@ -127,4 +127,7 @@ public class Pacman extends Entite {
         }
     }
 
+    public boolean isSuper() {
+        return isSuper;
+    }
 }
