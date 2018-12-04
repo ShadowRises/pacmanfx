@@ -36,6 +36,8 @@ public class Parser {
      */
     public Case[][] createPlateau() throws IOException {
         Case[][] plateau = new Case[Jeu.LONGUEUR][Jeu.LARGEUR];
+        String[] colors =  { "red", "blue", "orange", "pink"};
+        int indexColors = 0;
 
         int ligne = 0;
         int colonne = 0;
@@ -73,13 +75,15 @@ public class Parser {
                         break;
 
                     case 'F':
-                        this.entites.add(new Fantome(ligne, colonne, this.jeu));
+                        this.entites.add(new Fantome(ligne, colonne, this.jeu, colors[indexColors]));
                         plateau[ligne][colonne] = new Couloir(false,false);
+                        indexColors++;
                         break;
 
                     case 'R':
-                        this.entites.add(new Fantome(ligne, colonne, this.jeu));
+                        this.entites.add(new Fantome(ligne, colonne, this.jeu, colors[indexColors]));
                         plateau[ligne][colonne] = new Couloir(false, false, true);
+                        indexColors++;
                         break;
 
                     default:

@@ -9,10 +9,11 @@ public class Fantome extends Entite {
 
     public boolean isFear;
     public boolean isDead;
-    public String color = "blue";
+    public String color;
 
-    public Fantome(int posX, int posY, Jeu jeu) {
+    public Fantome(int posX, int posY, Jeu jeu, String color) {
         super(posX, posY, jeu);
+        this.color = color;
         this.waitTime = this.WAIT_TIME;
 
         this.isFear = false;
