@@ -4,7 +4,6 @@ import PacMan.Model.Parser.Parser;
 import javafx.application.Platform;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Observable;
 
 public class Jeu extends Observable {
