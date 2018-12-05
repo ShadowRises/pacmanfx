@@ -4,6 +4,7 @@ import PacMan.Model.Direction;
 import PacMan.View.Pane.Menu;
 import PacMan.View.Pane.Plateau;
 import PacMan.Model.Jeu;
+import PacMan.View.Pane.EndScreen;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -67,6 +68,23 @@ public class ApplicationPacMan extends Application {
 
         stage.setScene(scene);
     }
+    
+    private void setEndScreenOnStage(boolean victory) {
+        EndScreen endScreen = new EndScreen(victory);
+
+        endScreen.replayButton.setOnMouseClicked((click) -> {
+            setPlateauOnStage();
+
+        });
+
+        endScreen.exitButton.setOnMouseClicked((click) -> {
+            Platform.exit();
+        });
+
+        Scene scene = new Scene(endScreen);
+
+        stage.setScene(scene);
+    }
 
     private void setPlateauOnStage() {
         acChomp.play();
@@ -115,16 +133,18 @@ public class ApplicationPacMan extends Application {
                 plateau.draw();
 
                 if (plateau.getJeu().finPartie()) {
+                    boolean victory = true;
                     acChomp.stop();
 
                     if (!plateau.getJeu().getPacman().isAlive() && !acDeath.isPlaying()) {
                         acDeath.play();
-
+                        victory = false;
+                        
                         while (acDeath.isPlaying())
                             System.out.println("Waiting");
                     }
 
-                    setMenuOnStage();
+                    setEndScreenOnStage(victory);
                 }
             }
         });
