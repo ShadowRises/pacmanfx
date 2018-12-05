@@ -29,10 +29,8 @@ public abstract class Entite implements Runnable {
 
             try {
                 this.realiserAction();
-                
-                synchronized(this) {
-                    this.jeu.update();                    
-                }
+
+                this.jeu.update();
 
                 Thread.sleep(this.waitTime);
                 this.decreaseTimeSuperRemaining();

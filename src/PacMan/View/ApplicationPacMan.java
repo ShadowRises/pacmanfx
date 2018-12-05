@@ -22,6 +22,8 @@ public class ApplicationPacMan extends Application {
     private AudioClip acChomp;
     private AudioClip acDeath;
 
+    private static int UPDATE = 0; // Use to play the death only one
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         //Importing the font that will be used in the game
@@ -87,6 +89,7 @@ public class ApplicationPacMan extends Application {
     }
 
     private void setPlateauOnStage() {
+        this.UPDATE = 0;
         acChomp.play();
 
         Plateau plateau = new Plateau();
@@ -131,37 +134,30 @@ public class ApplicationPacMan extends Application {
             @Override
             public void update(Observable observable, Object o) {
                 plateau.draw();
-                
-                if (!plateau.getJeu().getPacman().isAlive() && !acDeath.isPlaying()) {
-                    acChomp.stop();
-                    acDeath.play();
 
-                    while (acDeath.isPlaying())
-                        System.out.println("Waiting");
-
-                    setEndScreenOnStage(false, plateau.getJeu().score);
-                    return;
-                }
-                
-                if (plateau.getJeu().finPartie()) {
-                    acChomp.stop();
-
-                    setEndScreenOnStage(true, plateau.getJeu().score);
-                }
-                /*if (plateau.getJeu().finPartie()) {
-                    boolean victory = true;
-                    acChomp.stop();
+                if(ApplicationPacMan.UPDATE == 0) {
+                    ApplicationPacMan.UPDATE = 1;
 
                     if (!plateau.getJeu().getPacman().isAlive() && !acDeath.isPlaying()) {
+                        acChomp.stop();
                         acDeath.play();
-                        victory = false;
-                        
+
                         while (acDeath.isPlaying())
                             System.out.println("Waiting");
+
+                        setEndScreenOnStage(false, plateau.getJeu().score);
+                        return;
+
                     }
 
-                    setEndScreenOnStage(victory);
-                }*/
+                    if (plateau.getJeu().finPartie()) {
+                        acChomp.stop();
+
+                        setEndScreenOnStage(true, plateau.getJeu().score);
+                    }
+
+                    ApplicationPacMan.UPDATE = 0;
+                }
             }
         });
 
