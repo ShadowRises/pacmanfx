@@ -21,6 +21,7 @@ public class ApplicationPacMan extends Application {
     private AudioClip acBeginning;
     private AudioClip acChomp;
     private AudioClip acDeath;
+    private AudioClip acWin;
 
     private static int UPDATE = 0; // Use to play the death only one
 
@@ -43,6 +44,10 @@ public class ApplicationPacMan extends Application {
         acDeath = new AudioClip(System.class.getResource("/sound/pacman_death.wav").toExternalForm());
         acDeath.setCycleCount(1);
         acDeath.setVolume(0.5);
+        
+        acWin = new AudioClip(System.class.getResource("/sound/streetfighter_youwin.mp3").toExternalForm());
+        acWin.setCycleCount(1);
+        acWin.setVolume(0.5);
 
         setMenuOnStage();
 
@@ -152,7 +157,8 @@ public class ApplicationPacMan extends Application {
 
                     if (plateau.getJeu().finPartie()) {
                         acChomp.stop();
-
+                        acWin.play();
+                        
                         setEndScreenOnStage(true, plateau.getJeu().score);
                     }
 
