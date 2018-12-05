@@ -75,13 +75,21 @@ public class Parser {
                         break;
 
                     case 'F':
-                        this.entites.add(new Fantome(ligne, colonne, this.jeu, colors[indexColors]));
                         plateau[ligne][colonne] = new Couloir(false,false);
+                        if(indexColors == 0) {
+
+                            this.entites.add(new Fantome(ligne, colonne, this.jeu, colors[indexColors]));
+
+                        } else if(indexColors == 1) {
+                            this.entites.add(new Fantome(ligne, colonne, this.jeu, colors[indexColors], 10000));
+                        } else {
+                            this.entites.add(new Fantome(ligne, colonne, this.jeu, colors[indexColors], 15000));
+                        }
                         indexColors++;
                         break;
 
                     case 'R':
-                        this.entites.add(new Fantome(ligne, colonne, this.jeu, colors[indexColors]));
+                        this.entites.add(new Fantome(ligne, colonne, this.jeu, colors[indexColors], 5000));
                         plateau[ligne][colonne] = new Couloir(false, false, true);
                         indexColors++;
                         break;
