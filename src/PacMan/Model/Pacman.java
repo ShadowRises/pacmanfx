@@ -71,7 +71,7 @@ public class Pacman extends Entite {
                     if(!this.isSuper)
                         this.isAlive = false;
 
-                    else {
+                    else if(this.isSuper && fantome.isFear) {
                         fantome.isDead = true;
                         tabEntite[nextX][nextY] = this;
                         this.KILLING_SPREE++;
@@ -96,7 +96,7 @@ public class Pacman extends Entite {
                     this.timeSuperRemaining = this.TIME_SUPER;
 
                     for(int i = 0; i < this.jeu.tabGhosts.length; i++) {
-                        this.jeu.tabGhosts[i].isFear = false;
+                        this.jeu.tabGhosts[i].isFear = true;
                         this.jeu.tabGhosts[i].waitTime = Fantome.FEAR_WAIT_TIME;
                     }
 

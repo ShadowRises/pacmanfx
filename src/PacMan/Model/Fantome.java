@@ -8,8 +8,8 @@ import java.util.Random;
 
 public class Fantome extends Entite {
 
-    public static final long WAIT_TIME = 450;
-    public static final long FEAR_WAIT_TIME = 750;
+    public static final long WAIT_TIME = 475;
+    public static final long FEAR_WAIT_TIME = 700;
 
     public boolean isFear;
     public boolean isDead;
@@ -126,7 +126,7 @@ public class Fantome extends Entite {
                 if(!(tabEntite[nextX][nextY] instanceof Fantome)) {
                     tabEntite[this.posX][this.posY] = null;
 
-                    if(tabEntite[nextX][nextY] instanceof Pacman)
+                    if(tabEntite[nextX][nextY] instanceof Pacman && !this.isFear)
                         tabEntite[nextX][nextY].isAlive = false;
 
                     tabEntite[nextX][nextY] = this;
