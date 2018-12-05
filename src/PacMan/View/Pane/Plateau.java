@@ -8,7 +8,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
-import java.util.Observable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
@@ -110,7 +109,11 @@ public class Plateau extends BorderPane {
                         Fantome tmpFantome = (Fantome) jeu.tabEntite[i][j];
                         ImageView imgFantome = null;
 
-                        if (jeu.getPacman().isSuper && jeu.getPacman().timeSuperRemaining > 3000)
+                        if (jeu.getPacman().isSuper && 
+                                (jeu.getPacman().timeSuperRemaining > 3000 || 
+                                (jeu.getPacman().timeSuperRemaining <= 2500 && jeu.getPacman().timeSuperRemaining > 2000) ||
+                                (jeu.getPacman().timeSuperRemaining <= 1500 && jeu.getPacman().timeSuperRemaining > 1000) ||
+                                (jeu.getPacman().timeSuperRemaining <= 500)))
                             imgFantome = new ImageView(new Image(System.class.getResourceAsStream("/icons/Fantome_weak.png")));
                         else if (jeu.getPacman().isSuper && jeu.getPacman().timeSuperRemaining <= 3000)
                             imgFantome = new ImageView(new Image(System.class.getResourceAsStream("/icons/Fantome_weak_warning.png")));
