@@ -20,8 +20,8 @@ public class Menu extends StackPane {
 
     public Menu() {
         this.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
-        this.setMinWidth(300);
-        this.setMinHeight(200);
+        this.setMinWidth(700);
+        this.setMinHeight(700);
 
         banniere = new ImageView(new Image(System.class.getResourceAsStream("/icons/banniere.png")));
 

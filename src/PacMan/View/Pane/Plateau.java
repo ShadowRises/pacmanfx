@@ -33,6 +33,8 @@ public class Plateau extends BorderPane {
         this.sPane = new StackPane();
 
         this.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
+        this.setMinWidth(700);
+        this.setMinHeight(700);
 
         gPane.setAlignment(Pos.CENTER);
         sPane.setAlignment(Pos.CENTER_LEFT);
