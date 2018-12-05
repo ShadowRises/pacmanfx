@@ -12,6 +12,7 @@ public class Pacman extends Entite {
 
     public Pacman(int posX, int posY, Jeu jeu) {
         super(posX, posY, jeu);
+        this.currDirection = Direction.RIGHT;
         this.waitTime = this.WAIT_TIME;
 
         this.isSuper = false;
@@ -82,7 +83,6 @@ public class Pacman extends Entite {
 
                 else
                     tabEntite[nextX][nextY] = this;
-
 
                 if(nextPosition.pacGomme) {
 

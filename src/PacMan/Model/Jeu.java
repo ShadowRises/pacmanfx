@@ -109,12 +109,30 @@ public class Jeu extends Observable {
     public void deplacer(Direction direction) {
 
         if(!direction.equals(Direction.NOT_A_DIRECTION)) {
-            for(int i = 0; i < this.LONGUEUR; i++) {
-                for(int j = 0; j < this.LARGEUR; j++) {
-                    if(this.tabEntite[i][j] instanceof Pacman)
-                        this.tabEntite[i][j].currDirection = direction;
-                }
+
+            switch (direction) {
+                case UP:
+                    if(this.plateau[this.pacman.posX][this.pacman.posY - 1] instanceof Couloir)
+                        this.pacman.currDirection = direction;
+                    break;
+
+                case DOWN:
+                    if(this.plateau[this.pacman.posX][this.pacman.posY + 1] instanceof Couloir)
+                        this.pacman.currDirection = direction;
+                    break;
+
+                case LEFT:
+                    if(this.plateau[this.pacman.posX - 1][this.pacman.posY] instanceof Couloir)
+                        this.pacman.currDirection = direction;
+                    break;
+
+                case RIGHT:
+                    if(this.plateau[this.pacman.posX + 1][this.pacman.posY] instanceof Couloir)
+                        this.pacman.currDirection = direction;
+                    break;
+
             }
+
         }
     }
 
