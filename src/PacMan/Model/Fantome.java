@@ -10,6 +10,7 @@ public class Fantome extends Entite {
 
     public static final long WAIT_TIME = 250;
     public static final long FEAR_WAIT_TIME = 400;
+    private static final long DEAD_TIME = 4000;
     private static final int DIFFICULTY = 4; // Greater = easier; (Min = 1; Max = 9)
 
     public boolean isFear;
@@ -63,7 +64,7 @@ public class Fantome extends Entite {
                 }
             }
 
-            Thread.sleep(1000);
+            Thread.sleep(this.DEAD_TIME);
             this.isDead = false;
             this.waitTime = this.WAIT_TIME;
         }
