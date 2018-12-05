@@ -144,4 +144,9 @@ public class Jeu extends Observable {
 
     public Pacman getPacman() { return this.pacman; }
 
+    public void killThreads() {
+        this.pacmanThread.stop();
+        for(Thread t : this.ghostThreads)
+            t.stop();
+    }
 }

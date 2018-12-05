@@ -147,9 +147,11 @@ public class ApplicationPacMan extends Application {
                         acChomp.stop();
                         acDeath.play();
 
-                        while (acDeath.isPlaying())
-                            System.out.println("Waiting");
+                        while (acDeath.isPlaying()) {
 
+                            //System.out.println("Waiting");
+                        }
+                        jeu.killThreads();
                         setEndScreenOnStage(false, plateau.getJeu().score);
                         return;
 
@@ -158,7 +160,8 @@ public class ApplicationPacMan extends Application {
                     if (plateau.getJeu().finPartie()) {
                         acChomp.stop();
                         acWin.play();
-                        
+
+                        jeu.killThreads();
                         setEndScreenOnStage(true, plateau.getJeu().score);
                     }
 
@@ -171,9 +174,7 @@ public class ApplicationPacMan extends Application {
          * Stop all thread to properly close the game
          */
         stage.setOnCloseRequest((e) -> {
-            jeu.pacmanThread.stop();
-            for(Thread t : jeu.ghostThreads)
-                t.stop();
+            jeu.killThreads();
         });
     }
 

@@ -125,8 +125,9 @@ public class Fantome extends Entite {
                 if(!(tabEntite[nextX][nextY] instanceof Fantome)) {
                     tabEntite[this.posX][this.posY] = null;
 
-                    if(tabEntite[nextX][nextY] instanceof Pacman && !this.isFear)
+                    if(tabEntite[nextX][nextY] instanceof Pacman && !this.isFear) {
                         tabEntite[nextX][nextY].isAlive = false;
+                    }
 
                     tabEntite[nextX][nextY] = this;
 
