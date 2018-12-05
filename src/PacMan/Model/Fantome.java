@@ -10,6 +10,7 @@ public class Fantome extends Entite {
 
     public static final long WAIT_TIME = 250;
     public static final long FEAR_WAIT_TIME = 400;
+    private static final int DIFFICULTY = 2; // Greater = easier; (Min = 1; Max = 9)
 
     public boolean isFear;
     public boolean isDead;
@@ -53,68 +54,13 @@ public class Fantome extends Entite {
         int nextY = this.posY;
 
         if(!this.isFear) {
-            AStar aStar = new AStar(this.jeu.plateau, new Node(this.posX, this.posY), new Node(this.jeu.getPacman().posX, this.jeu.getPacman().posY));
-            ArrayList<Node> path = aStar.performAStar();
 
-            this.currDirection = path.get(path.size() - 1).getDirection();
+            this.iaMovement();
 
         } else {
 
-            Random rand = new Random();
-            int randDir = rand.nextInt(4);
+            this.randomMovement();
 
-            int tempX;
-            int tempY;
-
-            switch (randDir) {
-                case 0:
-                    tempY = this.posY - 1;
-
-                    if(tempY == -1)
-                        tempY += Jeu.LARGEUR;
-
-                    tempY = tempY % Jeu.LARGEUR;
-
-                    if(this.jeu.plateau[this.posX][tempY] instanceof Couloir)
-                        this.currDirection = Direction.UP;
-                    break;
-
-                case 1:
-                    tempY = this.posY + 1;
-
-                    if(tempY == -1)
-                        tempY += Jeu.LARGEUR;
-
-                    tempY = tempY % Jeu.LARGEUR;
-
-                    if(this.jeu.plateau[this.posX][tempY] instanceof Couloir)
-                        this.currDirection = Direction.DOWN;
-                    break;
-
-                case 2:
-                    tempX = this.posX - 1;
-
-                    if(tempX == -1)
-                        tempX += Jeu.LONGUEUR;
-
-                    tempX = tempX % Jeu.LONGUEUR;
-
-                    if(this.jeu.plateau[tempX][this.posY] instanceof Couloir)
-                        this.currDirection = Direction.LEFT;
-                    break;
-
-                case 3:
-                    tempX = this.posX + 1;
-
-                    if(tempX == -1)
-                        tempX += Jeu.LONGUEUR;
-
-                    tempX = tempX % Jeu.LONGUEUR;
-
-                    if(this.jeu.plateau[tempX][this.posY] instanceof Couloir)
-                        this.currDirection = Direction.RIGHT;
-                    break;
-            }
         }
 
 
@@ -178,4 +124,78 @@ public class Fantome extends Entite {
     @Override
     protected void decreaseTimeSuperRemaining() {}
 
+    private void iaMovement() {
+
+        Random rand = new Random();
+        int randInt = rand.nextInt(10);
+
+        if(randInt % this.DIFFICULTY == 0) {
+            AStar aStar = new AStar(this.jeu.plateau, new Node(this.posX, this.posY), new Node(this.jeu.getPacman().posX, this.jeu.getPacman().posY));
+            ArrayList<Node> path = aStar.performAStar();
+
+            this.currDirection = path.get(path.size() - 1).getDirection();
+
+        } else {
+
+            this.randomMovement();
+        }
+    }
+
+    private void randomMovement() {
+        Random rand = new Random();
+        int randDir = rand.nextInt(4);
+
+        int tempX;
+        int tempY;
+
+        switch (randDir) {
+            case 0:
+                tempY = this.posY - 1;
+
+                if(tempY == -1)
+                    tempY += Jeu.LARGEUR;
+
+                tempY = tempY % Jeu.LARGEUR;
+
+                if(this.jeu.plateau[this.posX][tempY] instanceof Couloir)
+                    this.currDirection = Direction.UP;
+                break;
+
+            case 1:
+                tempY = this.posY + 1;
+
+                if(tempY == -1)
+                    tempY += Jeu.LARGEUR;
+
+                tempY = tempY % Jeu.LARGEUR;
+
+                if(this.jeu.plateau[this.posX][tempY] instanceof Couloir)
+                    this.currDirection = Direction.DOWN;
+                break;
+
+            case 2:
+                tempX = this.posX - 1;
+
+                if(tempX == -1)
+                    tempX += Jeu.LONGUEUR;
+
+                tempX = tempX % Jeu.LONGUEUR;
+
+                if(this.jeu.plateau[tempX][this.posY] instanceof Couloir)
+                    this.currDirection = Direction.LEFT;
+                break;
+
+            case 3:
+                tempX = this.posX + 1;
+
+                if(tempX == -1)
+                    tempX += Jeu.LONGUEUR;
+
+                tempX = tempX % Jeu.LONGUEUR;
+
+                if(this.jeu.plateau[tempX][this.posY] instanceof Couloir)
+                    this.currDirection = Direction.RIGHT;
+                break;
+        }
+    }
 }
