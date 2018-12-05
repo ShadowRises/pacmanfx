@@ -8,8 +8,8 @@ import java.util.Random;
 
 public class Fantome extends Entite {
 
-    public static final long WAIT_TIME = 475;
-    public static final long FEAR_WAIT_TIME = 700;
+    public static final long WAIT_TIME = 500;
+    public static final long FEAR_WAIT_TIME = 600;
 
     public boolean isFear;
     public boolean isDead;
@@ -63,21 +63,56 @@ public class Fantome extends Entite {
             Random rand = new Random();
             int randDir = rand.nextInt(4);
 
+            int tempX;
+            int tempY;
+
             switch (randDir) {
                 case 0:
-                    this.currDirection = Direction.UP;
+                    tempY = this.posY - 1;
+
+                    if(tempY == -1)
+                        tempY += Jeu.LARGEUR;
+
+                    tempY = tempY % Jeu.LARGEUR;
+
+                    if(this.jeu.plateau[this.posX][tempY] instanceof Couloir)
+                        this.currDirection = Direction.UP;
                     break;
 
                 case 1:
-                    this.currDirection = Direction.DOWN;
+                    tempY = this.posY + 1;
+
+                    if(tempY == -1)
+                        tempY += Jeu.LARGEUR;
+
+                    tempY = tempY % Jeu.LARGEUR;
+
+                    if(this.jeu.plateau[this.posX][tempY] instanceof Couloir)
+                        this.currDirection = Direction.DOWN;
                     break;
 
                 case 2:
-                    this.currDirection = Direction.LEFT;
+                    tempX = this.posX - 1;
+
+                    if(tempX == -1)
+                        tempX += Jeu.LONGUEUR;
+
+                    tempX = tempX % Jeu.LONGUEUR;
+
+                    if(this.jeu.plateau[tempX][this.posY] instanceof Couloir)
+                        this.currDirection = Direction.LEFT;
                     break;
 
                 case 3:
-                    this.currDirection = Direction.RIGHT;
+                    tempX = this.posX + 1;
+
+                    if(tempX == -1)
+                        tempX += Jeu.LONGUEUR;
+
+                    tempX = tempX % Jeu.LONGUEUR;
+
+                    if(this.jeu.plateau[tempX][this.posY] instanceof Couloir)
+                        this.currDirection = Direction.RIGHT;
                     break;
             }
         }
