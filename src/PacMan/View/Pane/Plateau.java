@@ -111,7 +111,7 @@ public class Plateau extends BorderPane {
                         Fantome tmpFantome = (Fantome) jeu.tabEntite[i][j];
                         ImageView imgFantome = null;
 
-                        if (jeu.getPacman().isSuper && 
+                        if (tmpFantome.isFear &&
                                 (jeu.getPacman().timeSuperRemaining > 3000 || 
                                 (jeu.getPacman().timeSuperRemaining <= 2500 && jeu.getPacman().timeSuperRemaining > 2000) ||
                                 (jeu.getPacman().timeSuperRemaining <= 1500 && jeu.getPacman().timeSuperRemaining > 1000) ||

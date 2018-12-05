@@ -28,7 +28,7 @@ public class Fantome extends Entite {
     protected void realiserAction() throws InterruptedException {
 
         if(this.isDead) {
-
+            this.isFear = false;
             for(int i = 0; i < Jeu.LONGUEUR; i++) {
                 for(int j = 0; j < Jeu.LARGEUR; j++) {
 
