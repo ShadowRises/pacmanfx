@@ -13,6 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -44,13 +45,29 @@ public class EndScreen extends StackPane{
         StackPane.setAlignment(banniere, Pos.TOP_CENTER);
 
         this.getChildren().add(banniere);
-
+        
+        StackPane sPane = new StackPane();
+        
+        Text score = new Text("Score : " + scorePacman);
+        Font customFont = new Font("Alterebro Pixel Font", 20);
+        score.setFont(customFont);
+        score.setX(50);
+        score.setFill(Color.WHITE);
+        
+        StackPane.setAlignment(score, Pos.TOP_CENTER);
+        sPane.getChildren().add(score);
+        
         replayButton = new MenuButton("Replay");
         replayButton.setTextAlignment(TextAlignment.CENTER);
 
         StackPane.setAlignment(replayButton, Pos.CENTER);
-
-        this.getChildren().add(replayButton);
+        sPane.getChildren().add(replayButton);
+        
+        sPane.setMaxHeight(200);
+        sPane.setMaxWidth(200);
+            
+        StackPane.setAlignment(sPane, Pos.CENTER);
+        this.getChildren().add(sPane);
 
         exitButton = new MenuButton("Exit");
         exitButton.setTextAlignment(TextAlignment.CENTER);
@@ -58,12 +75,5 @@ public class EndScreen extends StackPane{
         StackPane.setAlignment(exitButton, Pos.BOTTOM_CENTER);
 
         this.getChildren().add(exitButton);
-        
-        Text score = new Text("Score : " + scorePacman);
-        Font customFont = new Font("Alterebro Pixel Font", 20);
-        score.setFont(customFont);
-        score.setFill(Color.WHITE);
-        
-        this.getChildren().add(score);
     }
 }
