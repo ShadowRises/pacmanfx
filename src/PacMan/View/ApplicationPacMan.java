@@ -69,8 +69,8 @@ public class ApplicationPacMan extends Application {
         stage.setScene(scene);
     }
     
-    private void setEndScreenOnStage(boolean victory) {
-        EndScreen endScreen = new EndScreen(victory);
+    private void setEndScreenOnStage(boolean victory, int scorePacman) {
+        EndScreen endScreen = new EndScreen(victory, scorePacman);
 
         endScreen.replayButton.setOnMouseClicked((click) -> {
             setPlateauOnStage();
@@ -131,8 +131,24 @@ public class ApplicationPacMan extends Application {
             @Override
             public void update(Observable observable, Object o) {
                 plateau.draw();
+                
+                if (!plateau.getJeu().getPacman().isAlive() && !acDeath.isPlaying()) {
+                    acChomp.stop();
+                    acDeath.play();
 
+                    while (acDeath.isPlaying())
+                        System.out.println("Waiting");
+
+                    setEndScreenOnStage(false, plateau.getJeu().score);
+                    return;
+                }
+                
                 if (plateau.getJeu().finPartie()) {
+                    acChomp.stop();
+
+                    setEndScreenOnStage(true, plateau.getJeu().score);
+                }
+                /*if (plateau.getJeu().finPartie()) {
                     boolean victory = true;
                     acChomp.stop();
 
@@ -145,7 +161,7 @@ public class ApplicationPacMan extends Application {
                     }
 
                     setEndScreenOnStage(victory);
-                }
+                }*/
             }
         });
 

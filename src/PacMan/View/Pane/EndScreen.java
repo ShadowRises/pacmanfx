@@ -6,6 +6,7 @@
 package PacMan.View.Pane;
 
 import PacMan.View.Components.MenuButton;
+import java.util.Set;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
@@ -15,6 +16,8 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
 /**
@@ -27,13 +30,13 @@ public class EndScreen extends StackPane{
     public MenuButton exitButton;
     private ImageView banniere;
     
-    public EndScreen(boolean victory) {
+    public EndScreen(boolean victory, int scorePacman) {
         this.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
         this.setMinWidth(700);
         this.setMinHeight(700);
         
         if (victory) {
-            banniere = new ImageView(new Image(System.class.getResourceAsStream("/icons/banniere.png")));
+            banniere = new ImageView(new Image(System.class.getResourceAsStream("/icons/youwin.png")));
         } else {
             banniere = new ImageView(new Image(System.class.getResourceAsStream("/icons/gameover.png")));
         }
@@ -55,5 +58,12 @@ public class EndScreen extends StackPane{
         StackPane.setAlignment(exitButton, Pos.BOTTOM_CENTER);
 
         this.getChildren().add(exitButton);
+        
+        Text score = new Text("Score : " + scorePacman);
+        Font customFont = new Font("Alterebro Pixel Font", 20);
+        score.setFont(customFont);
+        score.setFill(Color.WHITE);
+        
+        this.getChildren().add(score);
     }
 }
