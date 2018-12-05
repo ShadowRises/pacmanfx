@@ -8,8 +8,8 @@ import java.util.Random;
 
 public class Fantome extends Entite {
 
-    public static final long WAIT_TIME = 500;
-    public static final long FEAR_WAIT_TIME = 600;
+    public static final long WAIT_TIME = 250;
+    public static final long FEAR_WAIT_TIME = 400;
 
     public boolean isFear;
     public boolean isDead;

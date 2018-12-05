@@ -3,7 +3,7 @@ package PacMan.Model;
 public class Pacman extends Entite {
 
     public static final long TIME_SUPER = 12000;
-    public static final long WAIT_TIME = 500;
+    public static final long WAIT_TIME = 250;
 
     private static int KILLING_SPREE = 1;
 
@@ -114,7 +114,7 @@ public class Pacman extends Entite {
 
     @Override
     protected void decreaseTimeSuperRemaining() {
-        this.timeSuperRemaining -= this.waitTime;
+        this.timeSuperRemaining -= this.waitTime * 2;
 
         if(this.timeSuperRemaining == 0) {
             this.isSuper = false;
