@@ -1,11 +1,15 @@
 package PacMan.Model;
 
+import PacMan.Model.IA.AStar;
+import PacMan.Model.IA.Node;
+
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Fantome extends Entite {
 
-    public static final long WAIT_TIME = 400;
-    public static final long FEAR_WAIT_TIME = 800;
+    public static final long WAIT_TIME = 450;
+    public static final long FEAR_WAIT_TIME = 750;
 
     public boolean isFear;
     public boolean isDead;
@@ -48,26 +52,37 @@ public class Fantome extends Entite {
         int nextX = this.posX;
         int nextY = this.posY;
 
-        Random rand = new Random();
-        int randDir = rand.nextInt(4);
+        if(!this.isFear) {
+            AStar aStar = new AStar(this.jeu.plateau, new Node(this.posX, this.posY), new Node(this.jeu.getPacman().posX, this.jeu.getPacman().posY));
+            ArrayList<Node> path = aStar.performAStar();
 
-        switch (randDir) {
-            case 0:
-                this.currDirection = Direction.UP;
-                break;
+            this.currDirection = path.get(path.size() - 1).getDirection();
 
-            case 1:
-                this.currDirection = Direction.DOWN;
-                break;
+        } else {
 
-            case 2:
-                this.currDirection = Direction.LEFT;
-                break;
+            Random rand = new Random();
+            int randDir = rand.nextInt(4);
 
-            case 3:
-                this.currDirection = Direction.RIGHT;
-                break;
+            switch (randDir) {
+                case 0:
+                    this.currDirection = Direction.UP;
+                    break;
+
+                case 1:
+                    this.currDirection = Direction.DOWN;
+                    break;
+
+                case 2:
+                    this.currDirection = Direction.LEFT;
+                    break;
+
+                case 3:
+                    this.currDirection = Direction.RIGHT;
+                    break;
+            }
         }
+
+
 
         switch (this.currDirection) {
             case UP:
@@ -119,7 +134,6 @@ public class Fantome extends Entite {
                     this.posX = nextX;
                     this.posY = nextY;
                 }
-
 
             }
 
